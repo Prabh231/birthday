@@ -14,7 +14,44 @@ function next(id) {
     el.style.display = "flex";  // 🔥 force show
   }
 }
+let password = "";
 
+function pressKey(num) {
+  password += num;
+  document.getElementById("passBox").value = password;
+}
+
+function clearPass() {
+  password = "";
+  document.getElementById("passBox").value = "";
+}
+
+function checkPass() {
+  const msg = document.getElementById("passMsg");
+  const shinchan = document.getElementById("shinchanImg");
+
+  if (password === "3112") {  // change password here
+
+    msg.innerText = "Correct ✔️";
+    shinchan.src = "shinchan.png";
+
+    setTimeout(() => {
+      next("p1"); // go to main page
+    }, 900);
+
+  } else {
+
+    msg.innerText = "Try again ❌";
+    shinchan.src = "shinchanlaughing.jpg";
+
+    // reset back to normal after 1 sec
+    setTimeout(() => {
+      shinchan.src = "shinchan.png";
+    }, 1000);
+
+    clearPass();
+  }
+}
 
 // =====================
 // BUTTONS (YES / NO)

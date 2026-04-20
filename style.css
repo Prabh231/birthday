@@ -244,7 +244,46 @@ button:hover {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-15px); }
 }
+.shinchan {
+  transition: transform 0.2s ease;
+}
 
+.shinchan:active {
+  transform: scale(1.1) rotate(-5deg);
+}
+.shinchan {
+  width: 90px;
+  max-width: 25vw;
+  height: auto;
+
+  position: absolute;
+  top: 20px;
+  left: 20px;
+
+  z-index: 1;
+
+  border-radius: 10px;
+}
+.lock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+  gap: 15px;
+  z-index: 2;
+  position: relative;
+}
+
+#passBox {
+  font-size: 22px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 160px;
+}
 /* OPEN ANIMATION */
 .gift-open {
   animation: openGift 1s forwards;
@@ -323,7 +362,39 @@ h1, h2 {
   margin: auto;
 }
 
+.lock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
 
+.shinchan {
+  width: 120px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px hotpink;
+}
+
+#passBox {
+  font-size: 22px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 180px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 70px);
+  gap: 10px;
+}
+
+.keypad button {
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 10px;
+}
 
   /* GIFT BIG BUT FIT SCREEN */
   .gift-box {
