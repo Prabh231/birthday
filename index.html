@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Do you love me? 😏</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main>
+  <section id="p1" class="page active">
+
+    <canvas id="heartCanvas"></canvas>
+
+    <h1>Do you love me? 😏</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes ❤️</button>
+      <button id="noBtn">No 😈</button>
+    </div>
+
+  </section>
+
+  <section id="p1b" class="page">
+    <h1 class="pop">I KNEW IT 😏</h1>
+  </section>
+
+  <section id="p2" class="page">
+    <header>
+      <h2>Some question time 😏</h2>
+    </header>
+
+    <p>Enter name of your favourite sibling</p>
+
+    <form id="favForm">
+      <input type="text" id="favInput" placeholder="Type here..." required>
+      <button type="submit">Submit</button>
+    </form>
+
+    <p id="responseMsg"></p>
+  </section>
+
+  <section id="p2b" class="page">
+    <h1 class="celebrate">I know! I am the best 😌</h1>
+  </section>
+
+  <section id="p3love" class="page">
+    <canvas id="loveCanvas"></canvas>
+    <h1 class="loveText">I LOVE YOU ❤️</h1>
+  </section>
+
+  <section id="p4memories" class="page">
+
+    <h1>Do you remember ? ❤️</h1>
+
+    <div class="grid">
+      <img src="img1.jpeg">
+      <img src="img2.jpeg">
+      <img src="img3.jpeg">
+      <img src="img4.jpeg">
+      <img src="img5.jpeg">
+      <img src="img6.jpeg">
+      <img src="img7.jpeg">
+      <img src="img8.jpeg">
+      <img src="img9.jpeg">
+    </div>
+
+    <button onclick="next('p5slideshow')">Continue ▶</button>
+
+  </section>
+
+  <section id="p5slideshow" class="page">
+
+    <h2>Our Memories ❤️</h2>
+
+    <div class="slideshow">
+
+      <button onclick="prevImage()">◀</button>
+
+      <div class="slide">
+        <img id="slideImg" src="">
+        <p id="slideText"></p>
+      </div>
+
+      <button onclick="startSlideshow()">Start ▶</button>
+
+    </div>
+
+    <button onclick="next('p6game')">Continue ▶</button>
+
+  </section>
+
+  <section id="p6game" class="page">
+
+    <h1>Catch this 😈</h1>
+
+    <button id="catchBtn">Click Me</button>
+
+  </section>
+
+  <!-- 🎁 UPDATED SURPRISE PAGE -->
+  <section id="p7loading" class="page">
+
+    <h1>🎁 A Surprise for You</h1>
+
+    <div id="giftBox">🎁</div>
+
+    <p id="giftText">Click the gift 20 times to open it</p>
+
+  </section>
+
+  <section id="p8birthday" class="page">
+
+    <h1 class="birthday">🎉 HAPPY BIRTHDAY 🎉</h1>
+
+    <div class="sticker-area"></div>
+
+    <button onclick="next('p9final')">Next ▶</button>
+
+  </section>
+
+  <section id="p9final" class="page">
+
+    <h1>💌 Message for you</h1>
+
+    <p id="finalMsg">
+      I just want to say you're amazing ❤️
+      And I miss you
+    </p>
+
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
