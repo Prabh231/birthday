@@ -1,9 +1,26 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: black;
-  color: white;
   overflow: hidden;
+
+  /* 🎀 CINEMATIC PINK BACKGROUND */
+  background: radial-gradient(circle at top, #ff4da6, #1a0010, #000);
+  color: #ffe6f2;
+}
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 0, 150, 0.2), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(255, 182, 213, 0.15), transparent 60%);
+  animation: bgMove 10s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes bgMove {
+  from { transform: translate(0,0); }
+  to { transform: translate(-5%, -5%); }
 }
 
 .page {
@@ -34,8 +51,20 @@ button {
   font-size: 18px;
   margin: 10px;
   cursor: pointer;
+
+  background: linear-gradient(135deg, #ff4da6, #ff99cc);
+  color: white;
+  border: none;
+  border-radius: 50px;
+
+  box-shadow: 0 10px 25px rgba(255, 0, 150, 0.4);
+  transition: 0.3s ease;
 }
 
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px hotpink;
+}
 /* moving NO button */
 #noBtn {
   position: absolute;
@@ -85,18 +114,32 @@ button {
 ========================= */
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 10px;
-  padding: 20px;
-  max-width: 100vw;
-  box-sizing: border-box;
+  padding: 15px;
+
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
 }
 
 .grid img {
   width: 100%;
-  height: 120px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
+
   border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 0, 150, 0.3);
+}
+.grid img:hover {
+  transform: scale(1.08) rotate(2deg);
+}
+
+.gift-box {
+  font-size: 160px;
+  cursor: pointer;
+
+  filter: drop-shadow(0 0 25px hotpink);
 }
 
 /* =========================
@@ -113,13 +156,22 @@ button {
 }
 
 .slide img {
-  max-width: 80vw;
-  max-height: 80vh;
-  width: auto;
+  width: 90vw;
+  max-width: 400px;
+  max-height: 65vh;
+
   height: auto;
   object-fit: contain;
+
   border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+
+  display: block;
+  margin: auto;
+}
+
+.slide img:hover {
+  transform: scale(1.05);
 }
 
 .slide p {
@@ -168,22 +220,131 @@ button {
 /* =========================
    🎁 GIFT PAGE (NEW)
 ========================= */
-.gift {
-  font-size: 120px;
-  cursor: pointer;
-  text-align: center;
-  animation: floatGift 1.5s infinite ease-in-out;
-  user-select: none;
+.gift-container {
+  perspective: 1000px;
+  margin-top: 40px;
 }
 
-.gift p {
-  font-size: 18px;
-  margin-top: 10px;
-  color: white;
+.gift-box {
+  font-size: 160px;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+  animation: floatGift 2s ease-in-out infinite;
+  filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3));
+}
+
+/* 3D hover effect */
+.gift-box:hover {
+  transform: rotateY(15deg) rotateX(10deg) scale(1.1);
+}
+
+@keyframes floatGift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* OPEN ANIMATION */
+.gift-open {
+  animation: openGift 1s forwards;
+}
+
+@keyframes openGift {
+  0% { transform: scale(1) rotateY(0deg); }
+  50% { transform: scale(1.3) rotateY(180deg); }
+  100% { transform: scale(0) rotateY(360deg); opacity: 0; }
 }
 
 @keyframes floatGift {
   0% { transform: translateY(0px) scale(1); }
   50% { transform: translateY(-10px) scale(1.05); }
   100% { transform: translateY(0px) scale(1); }
+}
+.moving-btn {
+  position: absolute;
+}
+h1, h2 {
+  text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+  animation: glowText 2s infinite alternate;
+}
+
+@keyframes glowText {
+  from { text-shadow: 0 0 10px #ff4da6; }
+  to { text-shadow: 0 0 30px #ff99cc, 0 0 60px #ff4da6; }
+}
+/* =========================
+   MOBILE FIX
+========================= */
+@media (max-width: 768px) {
+
+  h1 {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+
+  /* GRID FIX (VERY IMPORTANT) */
+  .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 10px;
+  width: 95%;
+  margin: auto;
+}
+
+  .grid img {
+    height: 80px;
+  }
+
+  /* SLIDESHOW FIX */
+  .slide img {
+  width: 100%;
+  max-width: 95vw;
+  max-height: 70vh;
+
+  height: auto;
+  object-fit: contain;
+
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+
+  display: block;
+  margin: auto;
+}
+
+
+
+  /* GIFT BIG BUT FIT SCREEN */
+  .gift-box {
+    font-size: 120px;
+  
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+}
+html, body {
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+body {
+  background-size: 200% 200%;
+  animation: bgFlow 8s ease infinite;
+}
+
+@keyframes bgFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

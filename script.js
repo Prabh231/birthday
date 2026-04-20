@@ -1,13 +1,18 @@
 // =====================
 // PAGE SWITCH
 // =====================
+
 function next(id) {
   document.querySelectorAll('.page').forEach(p => {
     p.classList.remove('active');
+    p.style.display = "none";   // 🔥 force hide
   });
 
   const el = document.getElementById(id);
-  if (el) el.classList.add('active');
+  if (el) {
+    el.classList.add('active');
+    el.style.display = "flex";  // 🔥 force show
+  }
 }
 
 
@@ -318,13 +323,113 @@ function startSlideshow() {
 const catchBtn = document.getElementById("catchBtn");
 
 if (catchBtn) {
-  catchBtn.addEventListener("mouseover", () => {
+  let clicks = 0;
+  const target = Math.floor(Math.random() * 6) + 5; // 5–10
+  let locked = false;
+
+  const escape = () => {
+    if (locked) return;
+
     catchBtn.style.position = "absolute";
-    catchBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
-    catchBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
-  });
+    catchBtn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+    catchBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+  };
+
+  // IMPORTANT FIX:
+  // ❌ remove hover-based escape completely (this caused infinite difficulty)
+  // Only escape AFTER click
 
   catchBtn.addEventListener("click", () => {
-    next("p7loading");
+    if (locked) return;
+
+    clicks++;
+
+    // move ONLY after click (not hover)
+    if (clicks < target) {
+      escape();
+      return;
+    }
+
+    // 🎯 WIN CONDITION (5–10 guaranteed)
+    locked = true;
+
+    catchBtn.innerText = "😇 You got me!";
+    catchBtn.style.position = "absolute";
+    catchBtn.style.top = "50%";
+    catchBtn.style.left = "50%";
+    catchBtn.style.transform = "translate(-50%, -50%)";
+
+    // stop any further movement
+    catchBtn.onclick = null;
+
+    setTimeout(() => {
+      next("p7loading");
+    }, 1000);
   });
 }
+const giftBox = document.getElementById("giftBox");
+const giftText = document.getElementById("giftText");
+
+if (giftBox) {
+  let clicks = 0;
+  const target = Math.floor(Math.random() * 10) + 10;
+
+  // 🔥 IMPORTANT: ensure it's clickable on mobile
+  giftBox.style.pointerEvents = "auto";
+  giftBox.style.position = "relative";
+  giftBox.style.zIndex = "10";
+
+  giftBox.addEventListener("click", () => {
+    clicks++;
+
+    giftText.textContent = `Keep going... ${clicks}/${target}`;
+
+    // small shake effect (safe for mobile)
+    giftBox.style.transform = `scale(1.05) rotate(${Math.random() * 10 - 5}deg)`;
+
+    if (clicks >= target) {
+      giftBox.classList.add("gift-open");
+
+      giftText.textContent = "🎉 Opening your surprise...";
+
+      setTimeout(() => {
+        next("p8birthday");
+      }, 1200);
+    }
+  });
+}
+let slideshowStarted = false;
+
+function startAutoSlideshow() {
+  if (slideshowStarted) return;
+  slideshowStarted = true;
+
+  startSlideshow();
+
+  let i = 0;
+
+  const interval = setInterval(() => {
+    nextImage();
+    i++;
+
+    if (i >= images.length - 1) {
+      clearInterval(interval);
+
+      setTimeout(() => {
+        next("p6game");
+      }, 1200);
+    }
+  }, 2000);
+}
+
+// click anywhere on slideshow page
+document.addEventListener("click", (e) => {
+  const page = document.getElementById("p5slideshow");
+
+  if (!page || !page.classList.contains("active")) return;
+
+  // ignore buttons
+  if (e.target.tagName === "BUTTON") return;
+
+  startAutoSlideshow();
+});
