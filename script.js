@@ -470,3 +470,9 @@ document.addEventListener("click", (e) => {
 
   startAutoSlideshow();
 });
+const music = document.getElementById("bgMusic");
+
+// start music on first user interaction (required by browser)
+document.addEventListener("click", () => {
+  music.play();
+}, { once: true });
